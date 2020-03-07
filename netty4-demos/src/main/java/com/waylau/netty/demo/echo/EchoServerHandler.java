@@ -18,7 +18,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 //        ctx.write(msg); // (1)
 //        ctx.flush(); // (2)
 //        final ChannelFuture future = ctx.writeAndFlush(msg);
-        final ChannelFuture future = ctx.write(msg + "\n");
+        final ChannelFuture future = ctx.write(msg+"\n");
 //        future.addListener(ChannelFutureListener.CLOSE);
 //        future.addListener(new ChannelFutureListener() {
 //            @Override
@@ -39,6 +39,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) { 
         // 当出现异常就关闭连接
+        System.out.println("exception....");
         cause.printStackTrace();
         ctx.close();
     }

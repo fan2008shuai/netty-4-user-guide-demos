@@ -32,18 +32,19 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
       @Override
       public void channelRead(ChannelHandlerContext ctx, Object msg) {
           System.out.println("channel read from server: " + msg);
-         ctx.write(msg + "\n");
+         ctx.writeAndFlush(msg+"\n");
       }
   
      @Override
       public void channelReadComplete(ChannelHandlerContext ctx) {
-         ctx.flush();
-         System.out.println("channel read complete");
+//         ctx.flush();
+//         System.out.println("channel read complete");
       }
   
      @Override
      public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
           // Close the connection when an exception is raised.
+         System.out.println("exception");
          cause.printStackTrace();
          ctx.close();
       }

@@ -38,7 +38,7 @@ public final class EchoClient {
                  @Override
                  public void initChannel(SocketChannel ch) throws Exception {
                      ChannelPipeline p = ch.pipeline();
-                	 p.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+                	 p.addLast("framer", new DelimiterBasedFrameDecoder(20, Delimiters.lineDelimiter()));
                      p.addLast("decoder", new StringDecoder());
                      p.addLast("encoder", new StringEncoder());
                      p.addLast(new EchoClientHandler());
