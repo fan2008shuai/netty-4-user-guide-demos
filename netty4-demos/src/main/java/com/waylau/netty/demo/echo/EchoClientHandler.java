@@ -2,10 +2,9 @@ package com.waylau.netty.demo.echo;
 
 
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 
 public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
@@ -31,8 +30,13 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
   
       @Override
       public void channelRead(ChannelHandlerContext ctx, Object msg) {
-          System.out.println("channel read from server: " + msg);
-         ctx.write(msg + "\n");
+          try {
+              System.out.println("channel read from server: " + msg);
+              ctx.writeAndFlush(firstMessage);
+              System.out.println(msg);
+          } finally {
+              ReferenceCountUtil.release(msg);
+          }
       }
   
      @Override
